@@ -1,5 +1,5 @@
 [build]
-  command = "bash netlify.sh"
+  command = "npm run build"
   publish = "dist/client"
   functions = "netlify/functions"
 
@@ -12,6 +12,7 @@
   NETLIFY_USE_RUBY = "false"
   SKIP_PYTHON_INSTALL = "true"
   SKIP_GO_INSTALL = "true"
+  NODE_ENV = "production"
 
 [dev]
   command = "npm run dev"
