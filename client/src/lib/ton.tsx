@@ -2,6 +2,9 @@ import React from 'react';
 import { createContext, useContext, ReactNode, useState, useEffect } from 'react';
 import { apiRequest, queryClient } from './queryClient';
 
+// Sabit cüzdan adresi - tüm TON ödemeleri bu adrese gidecek
+export const OWNER_WALLET_ADDRESS = "UQAQ2v-hrLbgJ2CRAyTXJbr5cNpXOrbuiOn0vOYuVotzoP1Y" as string;
+
 export interface TONWallet {
   address: string;
   shortAddress: string;

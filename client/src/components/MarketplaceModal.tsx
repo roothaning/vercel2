@@ -1,12 +1,14 @@
 import { useState } from "react";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from "@/components/ui/dialog";
-import { Equipment } from "@shared/schema";
+import { Equipment, MarketItem } from "@shared/schema";
 import { EquipmentCard } from "./EquipmentCard";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { useQuery, useMutation } from "@tanstack/react-query";
 import { apiRequest, queryClient } from "@/lib/queryClient";
 import { toast } from "@/hooks/use-toast";
+import { useTON } from "@/lib/ton";
+import { OWNER_WALLET_ADDRESS } from "../lib/ton";
 
 interface MarketplaceModalProps {
   isOpen: boolean;
@@ -16,14 +18,40 @@ interface MarketplaceModalProps {
 export function MarketplaceModal({ isOpen, onClose }: MarketplaceModalProps) {
   const [searchTerm, setSearchTerm] = useState("");
   
-  const { data: marketItems, isLoading } = useQuery<Equipment[]>({
+  const { data: marketItems, isLoading } = useQuery<MarketItem[]>({
     queryKey: ['/api/market/items'],
     enabled: isOpen,
   });
   
+  const { wallet, sendTransaction } = useTON();
+  
   const buyMutation = useMutation({
     mutationFn: async (itemId: string) => {
-      const response = await apiRequest("POST", "/api/market/buy", { itemId });
+      // TON ödemesi için cüzdan kontrolü
+      if (!wallet) {
+        throw new Error("Please connect your TON wallet first");
+      }
+      
+      // Ekipman bilgisini al
+      const item = marketItems?.find(i => i.id.toString() === itemId);
+      if (!item) {
+        throw new Error("Item not found");
+      }
+      
+      // TON ile ödeme yap - sahibin cüzdanına
+      if (item.tonPrice) {
+        const success = await sendTransaction(OWNER_WALLET_ADDRESS, item.tonPrice);
+        if (!success) {
+          throw new Error("TON payment failed");
+        }
+      }
+      
+      // Satın alma işlemini tamamla
+      const response = await apiRequest("POST", "/api/market/buy", { 
+        itemId,
+        paymentMethod: "ton",
+        ownerWallet: OWNER_WALLET_ADDRESS
+      });
       return response.json();
     },
     onSuccess: (data) => {
@@ -38,7 +66,7 @@ export function MarketplaceModal({ isOpen, onClose }: MarketplaceModalProps) {
     onError: (error) => {
       toast({
         title: "Purchase Failed",
-        description: "Unable to complete the purchase",
+        description: error instanceof Error ? error.message : "Unable to complete the purchase",
         variant: "destructive",
       });
     }

@@ -1,3 +1,6 @@
+// Telegram Bot API Token
+export const TELEGRAM_BOT_API_KEY = "7961461116:AAEEKleqHucP9PK1m1_5BIaHHsjF03LFY3I";
+
 // Interface for Telegram Web App
 interface ITelegramWebApp {
   ready(): void;
