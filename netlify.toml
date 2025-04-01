@@ -5,6 +5,9 @@
 
 [build.environment]
   NODE_VERSION = "18"
+  PYTHON_VERSION = "3.10"
+  SKIP_PYTHON_INSTALL = "true"
+  SKIP_GO_INSTALL = "true"
 
 [dev]
   command = "npm run dev"
