@@ -1,0 +1,53 @@
+🔥 Flame Coin Play-to-Earn Ekosistemi
+🏪 1. NFT ve TON Tabanlı Ekipman Marketi
+Oyun içindeki ekipmanlar NFT olarak mint edilebilir ve oyuncular arasında takas edilebilir.
+
+Kullanıcılar, madencilikte kullanacakları kazma, matkap, koruyucu kıyafet, enerji hücreleri vb. eşyaları satın alabilir.
+
+Satışlar TON veya Flame Coin ile yapılabilir.
+
+Pazar yerindeki her işlemden belirli bir % komisyon alınarak pasif gelir sağlanabilir.
+
+🎯 Ekipman Nadirlik Seviyeleri:
+Ortak (Common) → Basit ekipmanlar, her oyuncunun erişebileceği düşük maliyetli eşyalar.
+
+Nadir (Rare) → Daha güçlü ekipmanlar, sınırlı miktarda bulunur.
+
+Efsanevi (Legendary) → Çok güçlü ve dayanıklı, en iyi kazanç sağlayan eşyalar.
+
+Özel (Exclusive) → Yalnızca etkinliklerden veya premium kullanıcılar için satılabilecek eşyalar.
+
+💎 2. Oyuncular Arası Ticaret (P2P Market)
+Kullanıcılar NFT ekipmanlarını ve oyun içi varlıklarını kendi aralarında takas edebilir.
+
+Satışlardan %3 - %10 arasında bir komisyon kesilebilir.
+
+Oyuncular istedikleri fiyatı belirleyebilir ve açık artırma modeliyle de satış yapılabilir.
+
+🔥 3. Premium Üyelikler & Abonelik Sistemi
+Premium kullanıcılar şunlara sahip olabilir:
+✔ Daha hızlı madencilik → Normal oyunculara göre daha fazla kazanç.
+✔ Özel market erişimi → Sadece premiumlara açık nadir eşyalar.
+✔ Daha az komisyon → Pazar yerinde yapılan satışlardan daha az komisyon kesilmesi.
+✔ Airdrop ve Bonuslar → Özel NFT ödülleri, ücretsiz ekipman veya FLAME Coin bonusları.
+✔ Özel bölgelerde madencilik → Yüksek kazançlı maden sahalarına erişim.
+
+Abonelik modelleri:
+💠 Standart Premium → Aylık ücretli, belirli avantajlar sunar.
+💠 VIP Premium → Yıllık paket, ekstra NFT hediyeleri içerir.
+
+⚡ 4. Madencilik Sezonları & Özel Etkinlikler
+Sezonluk ödüller → Oyuncular belirli sürelerde en çok madencilik yaparak ödüller kazanabilir.
+
+Özel madenler → Sezonluk etkinliklerle belirli madenlere yalnızca premium oyuncular erişebilir.
+
+Limited Edition NFT’ler → Belirli sezonlarda yalnızca sınırlı sayıda özel NFT satılabilir.
+
+🔄 5. Dayanıklılık & Tamir Mekaniği
+Ekipmanlar belirli bir kullanım süresine sahip olacak ve zamanla aşınacak.
+
+Oyuncular ekipmanlarını tamir etmek için Flame Coin veya TON kullanabilir.
+
+Eğer ekipman kırılırsa, tamir edilemez ve yeniden satın alınması gerekir.
+
+Premium üyeler daha dayanıklı ekipmanlara sahip olabilir.
