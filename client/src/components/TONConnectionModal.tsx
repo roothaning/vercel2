@@ -1,4 +1,4 @@
-import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
 import { useTON } from "@/lib/ton.jsx";
 import { useState } from "react";
@@ -44,9 +44,10 @@ export function TONConnectionModal({ isOpen, onClose }: TONConnectionModalProps)
               <i className="fas fa-times"></i>
             </Button>
           </div>
+          <DialogDescription className="text-gray-300 mt-2">
+            Connect your TON wallet to buy, sell, and trade NFT equipment for Flame Coin.
+          </DialogDescription>
         </DialogHeader>
-        
-        <p className="text-gray-300 mb-6">Connect your TON wallet to buy, sell, and trade NFT equipment for Flame Coin.</p>
         
         <div className="space-y-3 mb-6">
           {wallets.map((wallet) => (

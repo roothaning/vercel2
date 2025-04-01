@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from "@/components/ui/dialog";
 import { Equipment } from "@shared/schema";
 import { EquipmentCard } from "./EquipmentCard";
 import { Input } from "@/components/ui/input";
@@ -87,6 +87,9 @@ export function MarketplaceModal({ isOpen, onClose }: MarketplaceModalProps) {
               <i className="fas fa-times"></i>
             </Button>
           </div>
+          <DialogDescription className="text-gray-300 mt-2">
+            Browse, buy and sell mining equipment
+          </DialogDescription>
         </DialogHeader>
         
         <div className="p-4">

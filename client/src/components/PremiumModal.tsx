@@ -1,4 +1,4 @@
-import { Dialog, DialogContent } from "@/components/ui/dialog";
+import { Dialog, DialogContent, DialogTitle, DialogDescription, DialogHeader } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
 import { useMutation } from "@tanstack/react-query";
 import { apiRequest, queryClient } from "@/lib/queryClient";
@@ -51,6 +51,11 @@ export function PremiumModal({ isOpen, onClose }: PremiumModalProps) {
   return (
     <Dialog open={isOpen} onOpenChange={(open) => !open && onClose()}>
       <DialogContent className="bg-dark-800 border-flame-700/30 text-white max-w-md pt-16 px-5 relative">
+        <DialogTitle className="sr-only">Premium Subscription</DialogTitle>
+        <DialogDescription className="sr-only">
+          Choose a premium subscription plan to enhance your mining experience
+        </DialogDescription>
+        
         <div className="absolute -top-12 left-1/2 transform -translate-x-1/2">
           <div className="w-24 h-24 rounded-full bg-gradient-to-br from-yellow-500 to-flame-600 flex items-center justify-center">
             <i className="fas fa-crown text-4xl text-white"></i>
