@@ -4,15 +4,20 @@
 echo "Using Node.js version $(node -v)"
 echo "Using npm version $(npm -v)"
 
-# Python bağımlılıklarını atla
-export PYTHON_VERSION=3.10
+# İhtiyaç duyulmayan dillerin kurulumunu atla
+export NETLIFY_USE_PYTHON=false
+export NETLIFY_USE_YARN=false
+export NETLIFY_USE_PNPM=false
+export NETLIFY_USE_GO=false
+export NETLIFY_USE_RUBY=false
 export SKIP_PYTHON_INSTALL=true
 export SKIP_GO_INSTALL=true
 
 # Değişkenleri ekrana yazdır
-echo "PYTHON_VERSION: $PYTHON_VERSION"
+echo "NETLIFY_USE_PYTHON: $NETLIFY_USE_PYTHON"
 echo "SKIP_PYTHON_INSTALL: $SKIP_PYTHON_INSTALL"
 echo "SKIP_GO_INSTALL: $SKIP_GO_INSTALL"
 
-# Build işlemini çalıştır
-npm ci && npm run build
+# Bağımlılıkları kur ve build işlemini çalıştır
+npm ci
+npm run build
