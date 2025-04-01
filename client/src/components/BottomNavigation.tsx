@@ -55,7 +55,7 @@ export function BottomNavigation() {
             tabIndex={0}
             aria-label="Inventory"
           >
-            <i className="fas fa-backpack text-xl"></i>
+            <i className="fas fa-briefcase text-xl"></i>
             <span className="text-xs mt-1">Inventory</span>
           </div>
           

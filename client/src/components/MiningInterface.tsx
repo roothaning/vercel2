@@ -23,7 +23,7 @@ export function MiningInterface() {
     lastHourReward: number;
   }>({
     queryKey: ['/api/mining/status'],
-    refetchInterval: 30000, // Refresh every 30 seconds
+    refetchInterval: 60000, // Refresh every 60 seconds (1 minute)
   });
   
   const collectMutation = useMutation({

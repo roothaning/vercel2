@@ -368,7 +368,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
       
       // In a real app, progress would be calculated based on various factors
       // For now, we'll use a simple calculation based on time elapsed
-      const progressCycle = 20 * 60 * 1000; // 20 minutes for full cycle
+      const progressCycle = 60 * 60 * 1000; // 60 minutes (1 hour) for full cycle
       const elapsedSinceStart = now.getTime() - startTime.getTime();
       const progress = Math.min(100, Math.floor((elapsedSinceStart % progressCycle) / progressCycle * 100));
       
