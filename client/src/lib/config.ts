@@ -4,10 +4,8 @@
 const isDevelopment = import.meta.env.DEV;
 
 // Dev ortamında doğrudan Express API'sini kullan, 
-// production ortamında Netlify Functions'ı kullan
-export const API_BASE_URL = isDevelopment 
-  ? '/api' 
-  : '/.netlify/functions/api';
+// production ortamında doğrudan /api'yi kullan (Vercel routing)
+export const API_BASE_URL = '/api';
 
 // Telegram ve TON yapılandırması - dışa aktarım
 export { TELEGRAM_BOT_API_KEY } from './telegram';
