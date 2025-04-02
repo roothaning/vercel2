@@ -1,0 +1,16 @@
+  Type 'null' is not assignable to type 'number'.
+server/storage.ts(344,32): error TS2345: Argument of type '{ id: number; createdAt: Date; tonPrice: string; flamePrice: number; sellerName: string; equipmentId?: number | null | undefined; isActive?: boolean | undefined; sellerId?: number | null | undefined; }' is not assignable to parameter of type 'TradingOffer'.
+  Type '{ id: number; createdAt: Date; tonPrice: string; flamePrice: number; sellerName: string; equipmentId?: number | null | undefined; isActive?: boolean | undefined; sellerId?: number | null | undefined; }' is not assignable to type '{ id: number; createdAt: Date; tonPrice: string; flamePrice: number; equipmentId: number | null; isActive: boolean; sellerId: number | null; sellerName: string; }'.
+    Types of property 'equipmentId' are incompatible.
+      Type 'number | null | undefined' is not assignable to type 'number | null'.
+        Type 'undefined' is not assignable to type 'number | null'.
+server/storage.ts(347,47): error TS2345: Argument of type 'number | null | undefined' is not assignable to parameter of type 'number'.
+  Type 'undefined' is not assignable to type 'number'.
+server/storage.ts(352,5): error TS2322: Type '{ equipment: { id: number; name: string; createdAt: Date; userId: number | null; rarity: string; icon: string; stats: unknown; marketId: number | null; durability: number; repairCost: number; isEquipped: boolean; }; ... 7 more ...; sellerId?: number | ... 1 more ... | undefined; }' is not assignable to type 'TradingOffer'.
+  Type '{ equipment: { id: number; name: string; createdAt: Date; userId: number | null; rarity: string; icon: string; stats: unknown; marketId: number | null; durability: number; repairCost: number; isEquipped: boolean; }; ... 7 more ...; sellerId?: number | ... 1 more ... | undefined; }' is not assignable to type '{ id: number; createdAt: Date; tonPrice: string; flamePrice: number; equipmentId: number | null; isActive: boolean; sellerId: number | null; sellerName: string; }'.
+    Types of property 'equipmentId' are incompatible.
+      Type 'number | null | undefined' is not assignable to type 'number | null'.
+        Type 'undefined' is not assignable to type 'number | null'.
+server/storage.ts(366,51): error TS2345: Argument of type 'number | null' is not assignable to parameter of type 'number'.
+  Type 'null' is not assignable to type 'number'.
+server/storage.ts(392,11): error TS2322: Type '{ id: number; timestamp: Date; type: string; amount: number; userId?: number | null | undefined; isTon?: boolean | undefined; description?: string | null | undefined; }' is not assignable to type '{ id: number; type: string; userId: number | null; amount: number; isTon: boolean; description: string | null; timestamp: Date; }'.

@@ -113,17 +113,19 @@ export class MemStorage implements IStorage {
     const id = this.userIdCounter++;
     const now = new Date();
     const user: User = { 
-      ...insertUser, 
       id, 
       createdAt: now,
-      flameBalance: 100, // Start with some Flame Coins
-      tonBalance: 0,
-      miningPower: 10,
-      dailyYield: 20,
-      equipmentCount: 0,
-      equipmentMax: 8,
-      premiumTier: "none",
-      premiumDaysLeft: 0
+      username: insertUser.username,
+      tonAddress: insertUser.tonAddress ?? null,
+      flameBalance: insertUser.flameBalance ?? 100, // Start with some Flame Coins
+      tonBalance: insertUser.tonBalance ?? 0,
+      miningPower: insertUser.miningPower ?? 10,
+      dailyYield: insertUser.dailyYield ?? 20,
+      equipmentCount: insertUser.equipmentCount ?? 0,
+      equipmentMax: insertUser.equipmentMax ?? 8,
+      premiumTier: insertUser.premiumTier ?? "none",
+      premiumExpiresAt: insertUser.premiumExpiresAt ?? null,
+      premiumDaysLeft: insertUser.premiumDaysLeft ?? 0
     };
     this.users.set(id, user);
     return user;
@@ -158,7 +160,22 @@ export class MemStorage implements IStorage {
   async createEquipment(insertEquipment: InsertEquipment): Promise<Equipment> {
     const id = this.equipmentIdCounter++;
     const now = new Date();
-    const equipment: Equipment = { ...insertEquipment, id, createdAt: now };
+    
+    // Ensure all required fields are present with default values if not provided
+    const equipment: Equipment = { 
+      id, 
+      createdAt: now,
+      name: insertEquipment.name,
+      rarity: insertEquipment.rarity,
+      icon: insertEquipment.icon,
+      stats: insertEquipment.stats,
+      userId: insertEquipment.userId ?? null,
+      marketId: insertEquipment.marketId ?? null,
+      durability: insertEquipment.durability ?? 100,
+      repairCost: insertEquipment.repairCost ?? 0,
+      isEquipped: insertEquipment.isEquipped ?? false
+    };
+    
     this.equipment.set(id, equipment);
     
     // Update user's equipment count
@@ -229,7 +246,20 @@ export class MemStorage implements IStorage {
   async createMarketItem(insertItem: InsertMarketItem): Promise<MarketItem> {
     const id = this.marketItemIdCounter++;
     const now = new Date();
-    const item: MarketItem = { ...insertItem, id, createdAt: now };
+    
+    // Ensure all required fields are present with default values if not provided
+    const item: MarketItem = { 
+      id, 
+      createdAt: now,
+      name: insertItem.name,
+      rarity: insertItem.rarity,
+      icon: insertItem.icon,
+      tonPrice: insertItem.tonPrice,
+      flamePrice: insertItem.flamePrice,
+      stats: insertItem.stats,
+      available: insertItem.available ?? true
+    };
+    
     this.marketItems.set(id, item);
     return item;
   }
@@ -255,7 +285,23 @@ export class MemStorage implements IStorage {
   async createMiningSite(insertSite: InsertMiningSite): Promise<MiningSite> {
     const id = this.miningSiteIdCounter++;
     const now = new Date();
-    const site: MiningSite = { ...insertSite, id, createdAt: now };
+    
+    // Ensure all required fields are present with default values if not provided
+    const site: MiningSite = { 
+      id, 
+      createdAt: now,
+      name: insertSite.name,
+      difficulty: insertSite.difficulty,
+      imageUrl: insertSite.imageUrl,
+      yieldRate: insertSite.yieldRate,
+      minPower: insertSite.minPower,
+      activeMiners: insertSite.activeMiners ?? 0,
+      isPremium: insertSite.isPremium ?? false,
+      seasonalEvent: insertSite.seasonalEvent ?? false,
+      isEventActive: insertSite.isEventActive ?? true,
+      remainingTime: insertSite.remainingTime ?? null
+    };
+    
     this.miningSites.set(id, site);
     return site;
   }
@@ -281,7 +327,18 @@ export class MemStorage implements IStorage {
   
   async createMiningSession(insertSession: InsertMiningSession): Promise<MiningSession> {
     const id = this.miningSessionIdCounter++;
-    const session: MiningSession = { ...insertSession, id };
+    
+    // Ensure all required fields are present with default values if not provided
+    const session: MiningSession = { 
+      id,
+      userId: insertSession.userId ?? null,
+      siteId: insertSession.siteId ?? null,
+      startedAt: insertSession.startedAt ?? new Date(),
+      lastCollectedAt: insertSession.lastCollectedAt ?? new Date(),
+      accumulatedReward: insertSession.accumulatedReward ?? 0,
+      isActive: insertSession.isActive ?? true
+    };
+    
     this.miningSessions.set(id, session);
     
     // Increment active miners count for the site
@@ -340,16 +397,28 @@ export class MemStorage implements IStorage {
   async createTradingOffer(insertOffer: InsertTradingOffer): Promise<TradingOffer> {
     const id = this.tradingOfferIdCounter++;
     const now = new Date();
-    const offer = { ...insertOffer, id, createdAt: now };
-    this.tradingOffers.set(id, offer);
+    
+    // Ensure all required fields are present with default values if not provided
+    const baseOffer = {
+      equipmentId: insertOffer.equipmentId ?? 0,
+      isActive: insertOffer.isActive ?? true,
+      sellerId: insertOffer.sellerId ?? null,
+      sellerName: insertOffer.sellerName,
+      tonPrice: insertOffer.tonPrice,
+      flamePrice: insertOffer.flamePrice,
+      id,
+      createdAt: now
+    };
+    
+    this.tradingOffers.set(id, baseOffer);
     
     // Get equipment for the full offer return
-    const equipment = await this.getEquipment(offer.equipmentId);
+    const equipment = await this.getEquipment(baseOffer.equipmentId);
     if (!equipment) {
       throw new Error("Equipment not found");
     }
     
-    return { ...offer, equipment };
+    return { ...baseOffer, equipment };
   }
   
   async updateTradingOffer(id: number, updates: Partial<TradingOffer>): Promise<TradingOffer | undefined> {
@@ -363,9 +432,15 @@ export class MemStorage implements IStorage {
     this.tradingOffers.set(id, updatedOffer);
     
     // Get equipment for the full offer return
-    const equipmentData = await this.getEquipment(updatedOffer.equipmentId);
-    if (!equipmentData) {
-      throw new Error("Equipment not found");
+    // If equipmentId is null, we'll handle it safely
+    let equipmentData = null;
+    if (updatedOffer.equipmentId !== null) {
+      equipmentData = await this.getEquipment(updatedOffer.equipmentId);
+      if (!equipmentData) {
+        throw new Error("Equipment not found");
+      }
+    } else {
+      throw new Error("Equipment ID cannot be null");
     }
     
     return { ...updatedOffer, equipment: equipmentData };
@@ -389,7 +464,18 @@ export class MemStorage implements IStorage {
   async createTransaction(insertTransaction: InsertTransaction): Promise<Transaction> {
     const id = this.transactionIdCounter++;
     const now = new Date();
-    const transaction: Transaction = { ...insertTransaction, id, timestamp: now };
+    
+    // Ensure all required fields are present with default values if not provided
+    const transaction: Transaction = { 
+      id, 
+      timestamp: now,
+      type: insertTransaction.type,
+      amount: insertTransaction.amount,
+      userId: insertTransaction.userId ?? null,
+      isTon: insertTransaction.isTon ?? false,
+      description: insertTransaction.description ?? null
+    };
+    
     this.transactions.set(id, transaction);
     return transaction;
   }
