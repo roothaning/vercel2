@@ -420,15 +420,17 @@ export class MemStorage implements IStorage {
       createdAt: now
     };
     
-    this.tradingOffers.set(id, baseOffer);
-    
-    // Get equipment for the full offer return
+    // Get equipment first to ensure it exists
     const equipment = await this.getEquipment(baseOffer.equipmentId);
     if (!equipment) {
       throw new Error("Equipment not found");
     }
     
-    return { ...baseOffer, equipment };
+    // Create the complete trading offer with equipment
+    const completeOffer = { ...baseOffer, equipment };
+    this.tradingOffers.set(id, baseOffer);
+    
+    return completeOffer;
   }
   
   async updateTradingOffer(id: number, updates: Partial<TradingOffer>): Promise<TradingOffer | undefined> {
